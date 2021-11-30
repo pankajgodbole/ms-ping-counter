@@ -1,10 +1,6 @@
 # ms-ping-counter
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
+This code is intended to be a heavily annotated example of a Web microservice that uses 'components' and interfaces with Redis.
 
 ## Usage
 
@@ -12,21 +8,6 @@ FIXME: explanation
 
     $ java -jar ms-ping-counter-0.1.0-standalone.jar [args]
 
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
 
 ## License
 
