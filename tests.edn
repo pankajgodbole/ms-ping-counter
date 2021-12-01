@@ -1,0 +1,6 @@
+;;
+;; ./tests.edn
+;;
+
+#kaocha/v1
+    {:kaocha/color? true}

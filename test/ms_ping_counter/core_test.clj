@@ -5,7 +5,7 @@
 ;;
 
 (ns ms-ping-counter.core-test
-  (:require ;;[clojure.test                    :refer :all]
+  (:require [clojure.test                    :refer :all]
             [com.stuartsierra.component      :as component]
             [ms-ping-counter.http-server     :as http-server]
             [ms-ping-counter.redis-component :as redis-component]
