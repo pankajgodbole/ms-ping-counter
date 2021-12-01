@@ -10,6 +10,7 @@
                  [ring/ring-json             "0.5.0"]
                  [compojure                  "1.6.2" :exclusions [ring/ring-core]]
                  [ring/ring-mock             "0.4.0"]
+
                  [circleci/bond              "0.5.0"]
                  [clj-http-fake              "1.0.3"]]
   :main         ^:skip-aot ms-ping-counter.core
@@ -17,6 +18,6 @@
   :profiles     {:uberjar {:aot :all
                            :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}
                  :dev     {:dependencies [[ring/ring-mock]
-                                          [circleci/bond "0.5.0"]
+                                          [circleci/bond       "0.5.0"]
                                           [lambdaisland/kaocha "1.0.829"]]}}
   :aliases      {"test" ["run" "-m" "kaocha.runner"]})
