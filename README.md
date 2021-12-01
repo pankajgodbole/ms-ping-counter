@@ -1,10 +1,10 @@
 # ms-ping-counter
 
-This code is intended to be an annotated example of a Web microservice that uses 'components' and interfaces with Redis.
+This code is intended to be an annotated example of a Web microservice that uses 'components', and interfaces with Redis.
 
 ## Usage
 
-FIXME: explanation
+To execute the application type:
 
     $ java -jar ms-ping-counter-0.1.0-standalone.jar [args]
 
