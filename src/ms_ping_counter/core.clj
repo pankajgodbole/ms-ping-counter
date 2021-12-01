@@ -8,9 +8,9 @@
 (ns ms-ping-counter.core
   (:gen-class
     :main true)
-  (:require [com.stuartsierra.component  :as component]
-            [ms-ping-counter.redis-component       :as redis]
-            [ms-ping-counter.http-server :as http-server]))
+  (:require [com.stuartsierra.component      :as component]
+            [ms-ping-counter.redis-component :as redis]
+            [ms-ping-counter.http-server     :as http-server]))
 
 (defonce ^:dynamic *system* nil)
 
