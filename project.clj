@@ -1,6 +1,7 @@
 (defproject ms-ping-counter "0.1.0-SNAPSHOT"
   :description  "Simple Clojure microservice"
   :url          "https://github.com/tsully/clojure-for-js-devs"
+  :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure        "1.10.3"]
                  [com.stuartsierra/component "1.0.0"]
                  [com.taoensso/carmine       "2.20.0"]
