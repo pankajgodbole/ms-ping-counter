@@ -17,6 +17,7 @@
 (defn main-system
   "Implements Component's Lifecycle protocol and creates a map of component dependencies"
   []
+  (println "core/main-system:\nEntered...")
   (component/system-map
     :redis       (redis/create-redis-instance "redis://localhost:6379")
     :http-server (component/using (http-server/create-new-server "0.0.0.0" 8080)
@@ -26,6 +27,7 @@
   "Starts components of system in dependency order. Runs the SystemMap implementation for the
   Lifecycle protocol's 'start' function"
   [system]
+  (println "core/start:\nsystem:" system)
   (try
     (component/start system)
     (catch Exception e
@@ -35,6 +37,7 @@
   "Stop the components of system in dependency order. Runs the SystemMap implementation for the
    Lifecycle protocol's 'start' function"
   [system]
+  (println "core/stop:\nsystem:" system)
   (component/stop system)
   ;; Dynamically rebind *system* back to nil
   (alter-var-root #'*system* (constantly nil)))
@@ -42,7 +45,7 @@
 (defn -main
   "The application's entry point"
   []
-  (println "Hello, World!")
+  (println "core/-main:\nHello, World!")
   (let [main-system (start (main-system))]
     ;; Dynamically rebind *system* to the newly created SystemMap instance
     (alter-var-root #'*system* (constantly main-system))

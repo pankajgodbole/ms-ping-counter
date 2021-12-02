@@ -15,7 +15,7 @@
 (deftest hello-world-handler-test
   (testing "hello-world-handler"
     (is (= (http-handlers/hello-world-handler)
-           "ms-ping-counter.http-handlers/ping-handler:\nHowdy!"))))
+           "Howdy!"))))
 
 (deftest counter-handler-test
   (testing "counter handler"
