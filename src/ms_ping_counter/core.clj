@@ -12,25 +12,29 @@
             [ms-ping-counter.redis-component :as redis]
             [ms-ping-counter.http-server     :as http-server]))
 
-(def app-host "localhost")
-
-(def app-port
+(defn get-http-port
   "Heroku dynamically assigns your app a port, so you can't set the port to a
    fixed number. Heroku adds the port to the env, so you can pull it from there.
    (Ref: https://stackoverflow.com/a/15693371/189785)"
-  (or (System/getenv "PORT")
-      8080))
+  []
+  (let [port (System/getenv "PORT")]
+    (if-not (empty? port)
+      (java.lang.Long/parseLong port)
+      8080)))
+
+(def http-host "localhost")
+(def http-port (get-http-port))
 
 (defonce ^:dynamic *system* nil)
 
 (defn main-system
   "Implements Component's Lifecycle protocol and creates a map of component dependencies"
   []
-  (prn "core/main-system:\napp-host, app-port:" app-host app-port)
+  (prn "core/main-system:\nhttp-host, http-port:" http-host http-port)
   (component/system-map
     :redis       (redis/create-redis-instance "redis://localhost:6379")
-    :http-server (component/using (http-server/create-new-server app-host
-                                                                 app-port)
+    :http-server (component/using (http-server/create-new-server http-host
+                                                                 http-port)
                                   [:redis])))
 
 (defn start
