@@ -66,6 +66,6 @@
 
 (defn create-new-server
   [host port]
-  (println "http-server/create-new-server:\nhost, port:\n"
+  (println "http-server/create-new-server:\nhost, port:"
            host port)
   (->HttpServer host port))
