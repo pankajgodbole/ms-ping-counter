@@ -22,7 +22,8 @@
       (java.lang.Long/parseLong port)
       8080)))
 
-(def http-host "localhost")
+;;(def http-host "localhost")
+(def http-host "0.0.0.0")
 (def http-port (get-http-port))
 
 (defonce ^:dynamic *system* nil)
