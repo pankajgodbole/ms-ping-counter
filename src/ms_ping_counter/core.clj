@@ -12,7 +12,7 @@
             [ms-ping-counter.redis-component :as redis]
             [ms-ping-counter.http-server     :as http-server]))
 
-(def app-host "0.0.0.0")
+(def app-host "localhost")
 
 (def app-port
   "Heroku dynamically assigns your app a port, so you can't set the port to a
@@ -26,7 +26,7 @@
 (defn main-system
   "Implements Component's Lifecycle protocol and creates a map of component dependencies"
   []
-  (println "core/main-system:\napp-host, app-port:" app-host app-port)
+  (prn "core/main-system:\napp-host, app-port:" app-host app-port)
   (component/system-map
     :redis       (redis/create-redis-instance "redis://localhost:6379")
     :http-server (component/using (http-server/create-new-server app-host
@@ -37,18 +37,18 @@
   "Starts components of system in dependency order. Runs the SystemMap implementation for the
   Lifecycle protocol's 'start' function"
   [system]
-  (println "core/start:\nsystem:" system)
   (try
+    (prn "core/start:\nsystem:" system)
     (component/start system)
     (catch Exception e
-      (println "ms-ping-counter.core/start: Failed to start the system:\n"
-               e))))
+      (prn "ms-ping-counter.core/start: Failed to start the system:\n"
+           e))))
 
 (defn stop
   "Stop the components of system in dependency order. Runs the SystemMap implementation for the
    Lifecycle protocol's 'start' function"
   [system]
-  (println "core/stop:\nsystem:" system)
+  (prn "core/stop:\nsystem:" system)
   (component/stop system)
   ;; Dynamically rebind *system* back to nil
   (alter-var-root #'*system* (constantly nil)))
@@ -56,7 +56,7 @@
 (defn -main
   "The application's entry point"
   []
-  (println "core/-main:\nHello, World!")
+  (prn "core/-main:\nHello, World!")
   (let [main-system (start (main-system))]
     ;; Dynamically rebind *system* to the newly created SystemMap instance
     (alter-var-root #'*system* (constantly main-system))

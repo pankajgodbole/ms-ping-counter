@@ -26,8 +26,7 @@
   (stop
     [this]
     (println "redis-component/RedisComponent/stop: Stopping the Redis component...")
-    (println "redis-component/RedisComponent/stop:\nRedisComponent:\n"
-             this)
+    (println "redis-component/RedisComponent/stop:\nRedisComponent:\n" this)
     (if (:connection this)
      (do
        (assoc this :connection nil))
@@ -50,11 +49,11 @@
 (defn getKey
   "Retrieve count for a key in Redis DB."
   [redis key]
-  (println "redis-component/getKey:\n redis:" redis)
+  (println "redis-component/getKey:\nredis, key:" redis key)
   (carmine/wcar (:connection redis) (carmine/get key)))
 
 (defn incr
   "Increment count for a key in Redis DB."
   [redis key]
-  (println "redis-component/incr:\n redis:" redis)
+  (println "redis-component/incr:\nredis, key:" redis key)
   (carmine/wcar (:connection redis) (carmine/incr key)))

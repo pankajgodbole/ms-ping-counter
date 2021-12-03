@@ -16,8 +16,8 @@
 (defn app-routes
    "Creates the Ring http-handler that defines the routes and route handlers"
    [redis-component]
-  (println "http-server/app-routes:\nredis-component:\n"
-           redis-component)
+  (prn "http-server/app-routes:\nredis-component:\n"
+       redis-component)
   (routes
       (GET "/hello-world"
            []
@@ -33,8 +33,8 @@
 (defn start-server
    "Start the HTTP server with our routes and middlewares"
    ([host port redis-component]
-    (println "http-server/start-server:\nhost, port, redis-component:\n"
-             host port redis-component)
+    (prn "http-server/start-server:\nhost, port, redis-component:\n"
+         host port redis-component)
     (-> (app-routes redis-component)
         ;; Turn map response bodies into JSON with the correct headers
         (ring-json/wrap-json-response)
@@ -51,21 +51,21 @@
   [host port]
   component/Lifecycle
   (start [this]
-    (println "http-server/HttpServer/start:\nhost, port, this:\n"
-             host port this)
+    (prn "http-server/HttpServer/start:\nhost, port, this:\n"
+         host port this)
     (if (:server this)
        this
        (let [http-server (start-server host port (:redis this))]
          (assoc this :server http-server))))
   (stop [this]
-    (println "http-server/HttpServer/stop:\nhost, port, this:\n"
-             host port this)
+    (prn "http-server/HttpServer/stop:\nhost, port, this:\n"
+         host port this)
    (when-let [http-server (:server this)]
       (.stop http-server))
    (dissoc this :server)))
 
 (defn create-new-server
   [host port]
-  (println "http-server/create-new-server:\nhost, port:"
-           host port)
+  (prn "http-server/create-new-server:\nhost, port:"
+       host port)
   (->HttpServer host port))

@@ -22,8 +22,10 @@
   "Increments the count of the times that this IP address has accessed the endpoint
    and, returns the count"
   [http-request redis-component]
-  (println "http-handlers/counter-handler:\nhttp-request, redis-component:\n"
-           http-request redis-component)
+  (println "http-handlers/counter-handler:\nhttp-request:\n"
+           http-request)
+  (println "http-handlers/counter-handler:\nredis-component:\n"
+           redis-component)
   (let [ip-address (:remote-addr http-request)
         counter    (redis-component/getKey redis-component ip-address)]
     (redis-component/incr redis-component ip-address)
