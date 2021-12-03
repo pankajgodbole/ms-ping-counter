@@ -12,7 +12,7 @@
             [ms-ping-counter.redis-component :as redis]
             [ms-ping-counter.http-server     :as http-server]))
 
-(def app-host "localhost")
+(def app-host "0.0.0.0")
 
 (def app-port
   "Heroku dynamically assigns your app a port, so you can't set the port to a
@@ -41,7 +41,8 @@
   (try
     (component/start system)
     (catch Exception e
-      (println "ms-ping-counter.core: Failed to start the system: " e))))
+      (println "ms-ping-counter.core/start: Failed to start the system:\n"
+               e))))
 
 (defn stop
   "Stop the components of system in dependency order. Runs the SystemMap implementation for the
