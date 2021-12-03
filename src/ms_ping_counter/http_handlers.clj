@@ -5,6 +5,12 @@
 (ns ms-ping-counter.http-handlers
   (:require [ms-ping-counter.redis-component :as redis-component]))
 
+(defn root-handler
+  ""
+  []
+  (println "http-handlers/root-handler:\nWelcome to the Ping Counter microservice!")
+  "Welcome to the Ping Counter microservice!")
+
 (defn hello-world-handler
   "Sanity check"
   []

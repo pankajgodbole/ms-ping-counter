@@ -19,16 +19,15 @@
   (prn "http-server/app-routes:\nredis-component:\n"
        redis-component)
   (routes
-      (GET "/hello-world"
-           []
-           (http-handlers/hello-world-handler))
-      (GET "/ping"
-           []
-           (http-handlers/ping-handler redis-component))
-      (GET "/counter"
-           http-request
-           (http-handlers/counter-handler http-request redis-component))
-      (compojure-route/not-found "http-server/app-routes:\n Route was not found.")))
+    (GET "/" []
+      (http-handlers/root-handler))
+    (GET "/hello-world" []
+      (http-handlers/hello-world-handler))
+    (GET "/ping" []
+      (http-handlers/ping-handler redis-component))
+    (GET "/counter" http-request
+      (http-handlers/counter-handler http-request redis-component))
+    (compojure-route/not-found "http-server/app-routes:\nRoute was not found.")))
 
 (defn start-server
    "Start the HTTP server with our routes and middlewares"
