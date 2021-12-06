@@ -22,7 +22,7 @@
     (let [http-response "Counter: 44"
           mock-request  (-> (ring-mock-request/request :get "/counter"))]
       (bond-james/with-stub!
-        [[redis-component/getKey (constantly 44)]
-         [redis-component/incr (constantly nil)]]
+        [[redis-component/get-val-by-key (constantly 44)]
+         [redis-component/increment-count (constantly nil)]]
         (is (= (http-handlers/counter-handler mock-request {})
                http-response))))))

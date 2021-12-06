@@ -34,5 +34,5 @@
            redis-component)
   (let [ip-address (:remote-addr http-request)
         counter    (redis-component/get-val-by-key redis-component ip-address)]
-    (redis-component/incr redis-component ip-address)
+    (redis-component/increment-count redis-component ip-address)
     (str "Counter: " counter)))
