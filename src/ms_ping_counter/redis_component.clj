@@ -20,13 +20,15 @@
     (if (:connection this)
       this
       (do
-        (println "redis-component/RedisComponent/start:\nRedisComponent:" this)
+        (println "redis-component/RedisComponent/start:\nRedisComponent:\n"
+                 this)
         (assoc this :connection {:pool {}
                                  :spec {:uri uri}}))))
   (stop
     [this]
     (println "redis-component/RedisComponent/stop: Stopping the Redis component...")
-    (println "redis-component/RedisComponent/stop:\nRedisComponent:\n" this)
+    (println "redis-component/RedisComponent/stop:\nRedisComponent:\n"
+             this)
     (if (:connection this)
      (do
        (assoc this :connection nil))
@@ -34,7 +36,8 @@
 
 (defn create-redis-instance
   [uri]
-  (println "redis-component/create-redis-instance:\nuri:" uri)
+  (println "redis-component/create-redis-instance:\nuri:\n"
+           uri)
   (map->RedisComponent {:uri uri}))
 
 ;;
@@ -42,18 +45,21 @@
 ;;
 (defn ping
   "Check that Redis connection is active"
-  [redis]
-  (println "redis-component/ping:\n redis:" redis)
-  (carmine/wcar (:connection redis) (carmine/ping)))
+  [redis-component]
+  (println "redis-component/ping:\n redis-component:\n"
+           redis-component)
+  (carmine/wcar (:connection redis-component) (carmine/ping)))
 
-(defn getKey
+(defn get-val-by-key
   "Retrieve count for a key in Redis DB."
-  [redis key]
-  (println "redis-component/getKey:\nredis, key:" redis key)
-  (carmine/wcar (:connection redis) (carmine/get key)))
+  [redis-component key]
+  (println "redis-component/get-val-by-key:\nredis-component, key:\n"
+           redis-component key)
+  (carmine/wcar (:connection redis-component) (carmine/get key)))
 
-(defn incr
+(defn increment-count
   "Increment count for a key in Redis DB."
-  [redis key]
-  (println "redis-component/incr:\nredis, key:" redis key)
-  (carmine/wcar (:connection redis) (carmine/incr key)))
+  [redis-component key]
+  (println "redis-component/increment-count:\nredis-component, key:\n"
+           redis-component key)
+  (carmine/wcar (:connection redis-component) (carmine/incr key)))
