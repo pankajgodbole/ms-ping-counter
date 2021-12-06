@@ -9,7 +9,6 @@
   (:gen-class
     :main true)
   (:require [com.stuartsierra.component      :as component]
-            [environ.core                    :as environ]
             [ms-ping-counter.redis-component :as redis]
             [ms-ping-counter.http-server     :as http-server]))
 
@@ -17,7 +16,6 @@
          redis-url
          get-http-port
          http-host
-         ;;http-port
          ^:dynamic *system*
          main-system
          start
