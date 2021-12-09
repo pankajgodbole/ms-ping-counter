@@ -32,7 +32,9 @@
            http-request)
   (println "http-handlers/counter-handler:\nredis-component:\n"
            redis-component)
-  (let [ip-address (:remote-addr http-request)
-        counter    (redis-component/get-val-by-key redis-component ip-address)]
-    (redis-component/increment-count redis-component ip-address)
-    (str "Counter: " counter)))
+  (let [ip-address     (:remote-addr http-request)
+        ping-count     (redis-component/get-val-by-key redis-component ip-address)
+        new-ping-count (redis-component/increment-count redis-component ip-address)]
+    (println "http-handlers/counter-handler:\nping-count, new-ping-count:\n"
+             ping-count new-ping-count)
+    (str "Ping count: " new-ping-count)))
