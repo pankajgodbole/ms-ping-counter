@@ -10,20 +10,7 @@
 
             [ring.mock.request               :as    ring-mock-request]))
 
-(declare get-redis-instance
-         get-ip-address
-         get-redis-url
-         redis-url
-         get-http-port
-         http-host
-         ^:dynamic *system*
-         main-system)
-
 (def redis-url (core/get-redis-url))
-
-(def redis-instance #'get-redis-instance)
-
-(def ip-address #'get-ip-address)
 
 (defn get-redis-instance
   []
@@ -33,10 +20,14 @@
   []
   (:remote-addr (-> (ring-mock-request/request :get "/"))))
 
-(redis-component/ping (get-redis-instance))
+(def redis-instance #'get-redis-instance)
 
-(redis-component/get-val-by-key (get-redis-instance)
-                                (get-ip-address))
+(def ip-address #'get-ip-address)
 
-(redis-component/increment-count (get-redis-instance)
-                                 (get-ip-address))
+(redis-component/ping (redis-instance))
+
+(redis-component/get-val-by-key (redis-instance)
+                                (ip-address))
+
+(redis-component/increment-count (redis-instance)
+                                 (ip-address))
