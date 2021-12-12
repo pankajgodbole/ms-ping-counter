@@ -4,7 +4,7 @@
 ;; Defines the test “component map”
 ;;
 
-(ns ms-ping-counter.user-test
+(ns user-test
   (:require [clojure.test                    :refer :all]
             [com.stuartsierra.component      :as component]
             [ms-ping-counter.http-server     :as http-server]
