@@ -4,8 +4,6 @@
 
 (ns user
   (:require [ms-ping-counter.core            :as core]
-            [ms-ping-counter.http-server     :as http-server]
-            [ms-ping-counter.http-handlers   :as http-handlers]
             [ms-ping-counter.redis-operations :as redis-operations]
 
             [ring.mock.request               :as    ring-mock-request]))
