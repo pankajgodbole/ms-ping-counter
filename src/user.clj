@@ -22,10 +22,10 @@
 
 (def ip-address #'get-ip-address)
 
-(redis-operations/ping-redis (redis-instance))
-
-(redis-operations/get-val-by-key (redis-instance)
-                                (ip-address))
-
-(redis-operations/increment-ping-count (redis-instance)
-                                 (ip-address))
+;(redis-operations/ping-redis (redis-instance))
+;
+;(redis-operations/get-val-by-key (redis-instance)
+;                                (ip-address))
+;
+;(redis-operations/increment-ping-count (redis-instance)
+;                                 (ip-address))
