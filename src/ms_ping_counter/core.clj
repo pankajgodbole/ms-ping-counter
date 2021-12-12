@@ -9,7 +9,7 @@
   (:gen-class
     :main true)
   (:require [com.stuartsierra.component      :as component]
-            [ms-ping-counter.redis-component :as redis]
+            [ms-ping-counter.redis-operations :as redis-operations]
             [ms-ping-counter.http-server     :as http-server]))
 
 (declare get-redis-url
@@ -41,7 +41,7 @@
     (prn "core/main-system: redis-url, http-host, http-port:\n"
          redis-url http-host http-port)
     (component/system-map
-      :redis (redis/create-redis-instance redis-url)
+      :redis (redis-operations/create-redis-instance redis-url)
       :http-server (component/using (http-server/create-new-server http-host
                                                                    http-port)
                                     [:redis]))))

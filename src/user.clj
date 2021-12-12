@@ -6,7 +6,7 @@
   (:require [ms-ping-counter.core            :as core]
             [ms-ping-counter.http-server     :as http-server]
             [ms-ping-counter.http-handlers   :as http-handlers]
-            [ms-ping-counter.redis-component :as redis-component]
+            [ms-ping-counter.redis-operations :as redis-operations]
 
             [ring.mock.request               :as    ring-mock-request]))
 
@@ -14,7 +14,7 @@
 
 (defn get-redis-instance
   []
-  (redis-component/create-redis-instance redis-url))
+  (redis-operations/create-redis-instance redis-url))
 
 (defn get-ip-address
   []
@@ -24,10 +24,10 @@
 
 (def ip-address #'get-ip-address)
 
-(redis-component/ping (redis-instance))
+(redis-operations/ping-redis (redis-instance))
 
-(redis-component/get-val-by-key (redis-instance)
+(redis-operations/get-val-by-key (redis-instance)
                                 (ip-address))
 
-(redis-component/increment-count (redis-instance)
+(redis-operations/increment-ping-count (redis-instance)
                                  (ip-address))

@@ -1,16 +1,13 @@
 ;;
 ;; http_handlers_test.clj
 ;;
-;;
-;;
-;;
 
 (ns ms-ping-counter.http-handlers-test
   (:require [clojure.test                    :refer [deftest is testing]]
             [ring.mock.request               :as    ring-mock-request]
             [bond.james                      :as    bond-james]
             [ms-ping-counter.http-handlers   :as    http-handlers]
-            [ms-ping-counter.redis-component :as    redis-component]))
+            [ms-ping-counter.redis-operations :as    redis-operations]))
 
 (deftest hello-world-handler-test
   (println "http-handlers-test/hello-world-handler-test:\n")
@@ -32,8 +29,8 @@
                (http-handlers/counter-handler mock-http-request {}))
       (println "http-handlers-test/counter-handler-test: About to call bond-james/with-stub!:\n")
       (bond-james/with-stub!
-            [[redis-component/get-val-by-key (constantly 2)]
-             [redis-component/increment-count (constantly nil)]]
+            [[redis-operations/get-val-by-key (constantly 2)]
+             [redis-operations/increment-ping-count (constantly nil)]]
 ;;            (is (= (http-handlers/counter-handler mock-http-request {})
 ;;                   http-response))
             (println "http-handlers-test/counter-handler-test: bond-james/with-stub!: (http-handlers/counter-handler mock-http-request {}):\n"
