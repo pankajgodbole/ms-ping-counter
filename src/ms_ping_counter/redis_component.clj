@@ -3,7 +3,8 @@
 ;;
 (ns ms-ping-counter.redis-component
   (:gen-class)
-  (:require [com.stuartsierra.component :as component]))
+  (:require [com.stuartsierra.component :as component]
+            [taoensso.carmine           :as carmine]))
 
 (defrecord RedisComponent
   [uri connection]
