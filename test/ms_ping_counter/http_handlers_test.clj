@@ -7,7 +7,7 @@
             [ring.mock.request               :as    ring-mock-request]
             [bond.james                      :as    bond-james]
             [ms-ping-counter.http-handlers   :as    http-handlers]
-            [ms-ping-counter.redis-operations :as    redis-operations]))
+            [ms-ping-counter.redis-component :as    redis-component]))
 
 (deftest hello-world-handler-test
   (println "http-handlers-test/hello-world-handler-test:\n")
@@ -29,8 +29,8 @@
                (http-handlers/counter-handler mock-http-request {}))
       (println "http-handlers-test/counter-handler-test: About to call bond-james/with-stub!:\n")
       (bond-james/with-stub!
-            [[redis-operations/get-val-by-key (constantly 2)]
-             [redis-operations/increment-ping-count (constantly nil)]]
+            [[redis-component/get-val-by-key (constantly 2)]
+             [redis-component/increment-ping-count (constantly nil)]]
 ;;            (is (= (http-handlers/counter-handler mock-http-request {})
 ;;                   http-response))
             (println "http-handlers-test/counter-handler-test: bond-james/with-stub!: (http-handlers/counter-handler mock-http-request {}):\n"
