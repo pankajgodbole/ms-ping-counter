@@ -24,7 +24,7 @@
 (defn -main
   "The application's entry point"
   []
-  (prn "core/-main:\nHello, World!")
+  (prn "core/-main: Hello, World!")
   (let [main-system (start (main-system))]
     ;; Dynamically rebind *system* to the newly created SystemMap instance
     (alter-var-root #'*system* (constantly main-system))
@@ -38,7 +38,7 @@
   []
   (let [redis-url (get-redis-url)
         http-port (get-http-port)]
-    (prn "core/main-system:\nredis-url, http-host, http-port:\n"
+    (prn "core/main-system: redis-url, http-host, http-port:\n"
          redis-url http-host http-port)
     (component/system-map
       :redis (redis/create-redis-instance redis-url)
@@ -76,17 +76,17 @@
   Lifecycle protocol's 'start' function"
   [system]
   (try
-    (prn "core/start:\nsystem:" system)
+    (prn "core/start: system:" system)
     (component/start system)
     (catch Exception e
-      (prn "ms-ping-counter.core/start: Failed to start the system:\n"
+      (prn "core/start: Failed to start the system:\n"
            e))))
 
 (defn stop
   "Stop the components of system in dependency order. Runs the SystemMap implementation for the
    Lifecycle protocol's 'start' function"
   [system]
-  (prn "core/stop:\nsystem:" system)
+  (prn "core/stop: system:" system)
   (component/stop system)
   ;; Dynamically rebind *system* back to nil
   (alter-var-root #'*system* (constantly nil)))

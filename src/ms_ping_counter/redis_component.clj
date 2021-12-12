@@ -20,14 +20,14 @@
     (if (:connection this)
       this
       (do
-        (println "redis-component/RedisComponent/start:\nRedisComponent:\n"
+        (println "redis-component/RedisComponent/start: RedisComponent:\n"
                  this)
         (assoc this :connection {:pool {}
                                  :spec {:uri uri}}))))
   (stop
     [this]
     (println "redis-component/RedisComponent/stop: Stopping the Redis component...")
-    (println "redis-component/RedisComponent/stop:\nRedisComponent:\n"
+    (println "redis-component/RedisComponent/stop: RedisComponent:\n"
              this)
     (if (:connection this)
      (do
@@ -36,7 +36,7 @@
 
 (defn create-redis-instance
   [uri]
-  (println "redis-component/create-redis-instance:\nuri:\n"
+  (println "redis-component/create-redis-instance: uri:\n"
            uri)
   (map->RedisComponent {:uri uri}))
 
@@ -46,20 +46,33 @@
 (defn ping
   "Check that Redis connection is active"
   [redis-component]
-  (println "redis-component/ping:\n redis-component:\n"
+  (println "redis-component/ping: redis-component:\n"
            redis-component)
-  (carmine/wcar (:connection redis-component) (carmine/ping)))
+  (let [redis-ping-result (carmine/wcar (:connection redis-component) (carmine/ping))]
+    (println "redis-component/ping: (carmine/wcar (:connection redis-component) (carmine/ping)):\n"
+             redis-ping-result)
+    redis-ping-result))
 
 (defn get-val-by-key
-  "Retrieve count for a key in Redis DB."
-  [redis-component key]
-  (println "redis-component/get-val-by-key:\nredis-component, key:\n"
-           redis-component key)
-  (carmine/wcar (:connection redis-component) (carmine/get key)))
+   "Retrieve count for a key in Redis DB."
+   [redis-component key]
+   ;(println "redis-component/get-val-by-key: redis-component:\n"
+   ;         redis-component)
+   ;(println "redis-component/get-val-by-key: key:\n"
+   ;         key)
+   (let [ip-address-val (carmine/wcar (:connection redis-component) (carmine/get key))]
+     (println "redis-component/get-val-by-key: (carmine/wcar (:connection redis-component) (carmine/get key)):\n"
+              ip-address-val)
+     ip-address-val))
 
 (defn increment-count
   "Increment count for a key in Redis DB."
   [redis-component key]
-  (println "redis-component/increment-count:\nredis-component, key:\n"
-           redis-component key)
-  (carmine/wcar (:connection redis-component) (carmine/incr key)))
+  ;(println "redis-component/increment-count: redis-component:\n"
+  ;         redis-component)
+  ;(println "redis-component/increment-count: key:\n"
+  ;         key)
+  (let [incr-ip-address-val (carmine/wcar (:connection redis-component) (carmine/incr key))]
+    (println "redis-component/increment-count: (carmine/wcar (:connection redis-component) (carmine/incr key)):\n"
+              incr-ip-address-val)
+    incr-ip-address-val))

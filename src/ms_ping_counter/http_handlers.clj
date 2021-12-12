@@ -8,19 +8,19 @@
 (defn root-handler
   ""
   []
-  (println "http-handlers/root-handler:\nWelcome to the Ping Counter microservice!\n")
+  (println "http-handlers/root-handler: Welcome to the Ping Counter microservice!\n")
   "Welcome to the Ping Counter microservice!")
 
 (defn hello-world-handler
   "Sanity check"
   []
-  (println "http-handlers/hello-world-handler:\nHowdy!")
+  (println "http-handlers/hello-world-handler: Howdy!")
   "Howdy!")
 
 (defn ping-handler
   "Checks whether our HTTP server can interface with Redis"
   [redis-component]
-  (println "http-handlers/ping-handler:\nredis-component:\n"
+  (println "http-handlers/ping-handler: redis-component:\n"
            redis-component)
   (redis-component/ping redis-component))
 
@@ -28,13 +28,17 @@
   "Increments the count of the times that this IP address has accessed the
    endpoint and, returns the count"
   [http-request redis-component]
-  (println "http-handlers/counter-handler:\nhttp-request:\n"
+  (println "http-handlers/counter-handler: http-request:\n"
            http-request)
-  (println "http-handlers/counter-handler:\nredis-component:\n"
+  (println "http-handlers/counter-handler: redis-component:\n"
            redis-component)
   (let [ip-address     (:remote-addr http-request)
-        ping-count     (redis-component/get-val-by-key redis-component ip-address)
-        new-ping-count (redis-component/increment-count redis-component ip-address)]
-    (println "http-handlers/counter-handler:\nping-count, new-ping-count:\n"
-             ping-count new-ping-count)
-    (str "Ping count: " new-ping-count)))
+        ping-count     (redis-component/get-val-by-key redis-component ip-address)]
+    (println "http-handlers/counter-handler: ip-address:\n"
+             ip-address)
+    (println "http-handlers/counter-handler: ping-count:\n"
+             ping-count)
+    (println "http-handlers/counter-handler: (redis-component/increment-count redis-component ip-address):\n"
+             ping-count)
+    (str "Ping count: "
+         (redis-component/increment-count redis-component ip-address))))

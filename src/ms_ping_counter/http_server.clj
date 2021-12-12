@@ -16,7 +16,7 @@
 (defn app-routes
    "Creates the Ring http-handler that defines the routes and route handlers"
    [redis-component]
-  (prn "http-server/app-routes:\nredis-component:\n"
+  (prn "http-server/app-routes: redis-component:\n"
        redis-component)
   (routes
     (GET "/" []
@@ -27,12 +27,12 @@
       (http-handlers/ping-handler redis-component))
     (GET "/counter" http-request
       (http-handlers/counter-handler http-request redis-component))
-    (compojure-route/not-found "http-server/app-routes:\nRoute was not found.")))
+    (compojure-route/not-found "http-server/app-routes: Route was not found.")))
 
 (defn start-server
    "Start the HTTP server with our routes and middlewares"
    ([host port redis-component]
-    (prn "http-server/start-server:\nhost, port, redis-component:\n"
+    (prn "http-server/start-server: host, port, redis-component:\n"
          host port redis-component)
     (-> (app-routes redis-component)
         ;; Turn map response bodies into JSON with the correct headers
@@ -50,14 +50,14 @@
   [host port]
   component/Lifecycle
   (start [this]
-    (prn "http-server/HttpServer/start:\nhost, port, this:\n"
+    (prn "http-server/HttpServer/start: host, port, this:\n"
          host port this)
     (if (:server this)
        this
        (let [http-server (start-server host port (:redis this))]
          (assoc this :server http-server))))
   (stop [this]
-    (prn "http-server/HttpServer/stop:\nhost, port, this:\n"
+    (prn "http-server/HttpServer/stop: host, port, this:\n"
          host port this)
    (when-let [http-server (:server this)]
       (.stop http-server))
@@ -65,6 +65,6 @@
 
 (defn create-new-server
   [host port]
-  (prn "http-server/create-new-server:\nhost, port:"
+  (prn "http-server/create-new-server: host, port:"
        host port)
   (->HttpServer host port))
